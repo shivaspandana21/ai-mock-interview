@@ -1,3 +1,7 @@
+# 🚀 Live Project Links
+- **Frontend (UI):** [https://shivaspandana21.github.io/Ai-Mock-Interview/](https://shivaspandana21.github.io/Ai-Mock-Interview/)
+- **Backend (API):** [https://ai-mock-interview-1bty.onrender.com/api/test](https://ai-mock-interview-1bty.onrender.com/api/test)
+
 # 🎯 InterviewIQ — AI Interview Platform
 
 A fully-featured, modern AI-powered interview preparation platform built with
