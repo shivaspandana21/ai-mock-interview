@@ -10,7 +10,8 @@ const Dashboard = ({ user, onNavigate }) => {
     const fetchDashboardData = async () => {
       try {
         const userId = user?.id || 1; // fallback to 1 for demo
-        const res = await fetch(`/api/interviews?userId=${userId}`);
+        const apiUrl = import.meta.env.VITE_API_URL || '';
+        const res = await fetch(`${apiUrl}/api/interviews?userId=${userId}`);
         const data = await res.json();
         setInterviews(data || []);
       } catch (err) {

@@ -14,22 +14,14 @@ const AuthScreen = ({ onLoginSuccess }) => {
       setError('Please provide both email and password.');
       return;
     }
-    
-    try {
-      const res = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
-      });
-      const data = await res.json();
-      
-      if (!res.ok) {
-        throw new Error(data.error || 'Login failed');
-      }
-      
-      onLoginSuccess && onLoginSuccess(data.user);
-    } catch (err) {
-      setError(err.message);
+
+    // Demo login - no backend needed
+    if (email === 'demo@interviewiq.ai' && password === 'demo1234') {
+      const user = { name: 'Demo User', email };
+      localStorage.setItem('user', JSON.stringify(user));
+      onLoginSuccess && onLoginSuccess(user);
+    } else {
+      setError('Invalid credentials. Use demo@interviewiq.ai / demo1234');
     }
   };
 
@@ -39,23 +31,11 @@ const AuthScreen = ({ onLoginSuccess }) => {
       setError('Please fill in all fields.');
       return;
     }
-    
-    try {
-      const res = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password })
-      });
-      const data = await res.json();
-      
-      if (!res.ok) {
-        throw new Error(data.error || 'Registration failed');
-      }
-      
-      onLoginSuccess && onLoginSuccess(data.user);
-    } catch (err) {
-      setError(err.message);
-    }
+
+    // Demo signup - no backend needed
+    const user = { name, email };
+    localStorage.setItem('user', JSON.stringify(user));
+    onLoginSuccess && onLoginSuccess(user);
   };
 
   return (
@@ -68,16 +48,16 @@ const AuthScreen = ({ onLoginSuccess }) => {
           <h1>AI Mock Interview</h1>
           <p>Your AI-Powered Interview Coach</p>
         </div>
-        
+
         <div className="auth-tabs">
-          <div 
-            className={`auth-tab ${tab === 'login' ? 'active' : ''}`} 
+          <div
+            className={`auth-tab ${tab === 'login' ? 'active' : ''}`}
             onClick={() => { setTab('login'); setError(null); }}
           >
             Login
           </div>
-          <div 
-            className={`auth-tab ${tab === 'signup' ? 'active' : ''}`} 
+          <div
+            className={`auth-tab ${tab === 'signup' ? 'active' : ''}`}
             onClick={() => { setTab('signup'); setError(null); }}
           >
             Sign Up
@@ -90,9 +70,9 @@ const AuthScreen = ({ onLoginSuccess }) => {
           <form id="login-form" onSubmit={handleLogin}>
             <div className="form-group">
               <label>Email Address</label>
-              <input 
-                type="email" 
-                className="form-input" 
+              <input
+                type="email"
+                className="form-input"
                 placeholder="you@example.com"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
@@ -100,9 +80,9 @@ const AuthScreen = ({ onLoginSuccess }) => {
             </div>
             <div className="form-group">
               <label>Password</label>
-              <input 
-                type="password" 
-                className="form-input" 
+              <input
+                type="password"
+                className="form-input"
                 placeholder="••••••••"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
@@ -111,15 +91,15 @@ const AuthScreen = ({ onLoginSuccess }) => {
             <div className="demo-hint">
               <span>Demo: </span><code>demo@interviewiq.ai</code> / <code>demo1234</code>
             </div>
-            <button type="submit" className="btn-primary">🔐 Sign In with JWT</button>
+            <button type="submit" className="btn-primary">🔐 Sign In</button>
           </form>
         ) : (
           <form id="signup-form" onSubmit={handleSignup}>
             <div className="form-group">
               <label>Full Name</label>
-              <input 
-                type="text" 
-                className="form-input" 
+              <input
+                type="text"
+                className="form-input"
                 placeholder="John Doe"
                 value={name}
                 onChange={e => setName(e.target.value)}
@@ -127,9 +107,9 @@ const AuthScreen = ({ onLoginSuccess }) => {
             </div>
             <div className="form-group">
               <label>Email Address</label>
-              <input 
-                type="email" 
-                className="form-input" 
+              <input
+                type="email"
+                className="form-input"
                 placeholder="you@example.com"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
@@ -137,9 +117,9 @@ const AuthScreen = ({ onLoginSuccess }) => {
             </div>
             <div className="form-group">
               <label>Password</label>
-              <input 
-                type="password" 
-                className="form-input" 
+              <input
+                type="password"
+                className="form-input"
                 placeholder="Min 8 characters"
                 value={password}
                 onChange={e => setPassword(e.target.value)}

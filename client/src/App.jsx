@@ -17,7 +17,8 @@ function App() {
 
   useEffect(() => {
     // Check backend connection quietly
-    fetch('/api/test')
+    const apiUrl = import.meta.env.VITE_API_URL || '';
+    fetch(`${apiUrl}/api/test`)
       .then(res => res.json())
       .then(data => {
         console.log("Backend Connected:", data);

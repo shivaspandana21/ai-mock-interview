@@ -19,7 +19,8 @@ const QuestionBank = () => {
   const fetchQuestions = async () => {
     setLoading(true);
     try {
-      let url = '/api/questions?';
+      const apiUrl = import.meta.env.VITE_API_URL || '';
+      let url = `${apiUrl}/api/questions?`;
       if (streamFilter) url += `stream=${streamFilter}&`;
       if (difficultyFilter) url += `difficulty=${difficultyFilter}`;
       
@@ -41,7 +42,8 @@ const QuestionBank = () => {
     if (!topic) return;
     setGenerating(true);
     try {
-      const res = await fetch('/api/questions/generate', {
+      const apiUrl = import.meta.env.VITE_API_URL || '';
+      const res = await fetch(`${apiUrl}/api/questions/generate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ topic })

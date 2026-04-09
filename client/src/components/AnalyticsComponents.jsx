@@ -8,7 +8,8 @@ const useInterviews = (user) => {
     const fetchInterviews = async () => {
       try {
         const userId = user?.id || 1;
-        const res = await fetch(`/api/interviews?userId=${userId}`);
+        const apiUrl = import.meta.env.VITE_API_URL || '';
+        const res = await fetch(`${apiUrl}/api/interviews?userId=${userId}`);
         const data = await res.json();
         setInterviews(data || []);
       } catch (err) {

@@ -45,7 +45,8 @@ const StreamInterview = ({ user }) => {
           else finalScore = Math.floor(Math.random() * 15) + 40;
         }
 
-        await fetch('/api/interviews', {
+        const apiUrl = import.meta.env.VITE_API_URL || '';
+        await fetch(`${apiUrl}/api/interviews`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
